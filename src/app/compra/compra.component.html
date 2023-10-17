@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="form">
+        <label for="">Producto</label>
+        <input type="text">
+
+        <label for="">Precio</label>
+        <input type="number">
+        <button (click)="GetToken()">Aprobar</button>
+        <div >
+            <p *ngIf="tiempo.segundos > 0">Podrás reenviar un nuevo token en: {{ tiempo | temporizador }}</p>
+            <button *ngIf="tiempo.estado">Reenviar Token</button>
+        </div>
+    </div>
+</div>
