@@ -5,10 +5,10 @@
 
         <label for="">Precio</label>
         <input type="number">
-        <button (click)="GetToken()">Aprobar</button>
+        <button *ngIf="mostrarEnvio" (click)="GetToken()">Aprobar</button>
         <div >
-            <p *ngIf="tiempo.segundos > 0">Podrás reenviar un nuevo token en: {{ tiempo | temporizador }}</p>
-            <button *ngIf="tiempo.estado">Reenviar Token</button>
+            <p *ngIf="mostrarTiempo">Tiempo para generar un nuevo token: {{ tiempo | temporizador }}</p>
+            <button (click)="GetToken()" *ngIf="mostrarReenvio">Reenviar Token</button>
         </div>
     </div>
 </div>

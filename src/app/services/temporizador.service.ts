@@ -8,7 +8,7 @@ import { Temporizador } from '../models/temporizador.model';
 export class TemporizadorService {
 
   private tiempo$ = new Subject<Temporizador>();
-  private temporizadorDisplay: Temporizador = {minutos: 0, segundos: 0, estado: false};
+  private temporizadorDisplay: Temporizador = {minutos: 0, segundos: 0};
   private segundos: number = 0;
   private temporizador: any;
 
@@ -34,17 +34,11 @@ export class TemporizadorService {
   }
 
   private mostrarTiempo() {
-    const minutos = Math.floor(this.segundos / 60);
-    const segundos = this.segundos % 60;
-    var estado = false;
-    (this.segundos == 0) ? estado = true : estado = false;
     this.temporizadorDisplay = {
-      minutos: minutos,
-      segundos: segundos,
-      estado: estado
+      minutos: Math.floor(this.segundos / 60),
+      segundos: this.segundos % 60,
     }
     this.tiempo$.next(this.temporizadorDisplay);
-    console.log(`Tiempo transcurrido: 0${minutos} minutos y ${segundos} segundos`);
   }
 
 }

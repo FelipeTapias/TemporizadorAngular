@@ -10,11 +10,16 @@ import { Temporizador } from '../models/temporizador.model';
 })
 export class CompraComponent implements OnDestroy {
   tiempo$: Observable<Temporizador>;
-  tiempo: Temporizador = {minutos: -1, segundos: -1, estado: false};
-  segundos = parseInt('80');
+  tiempo: Temporizador = {minutos: 0, segundos: 0};
+  segundos = parseInt('6');
   subs = new Subscription();
 
+  mostrarTiempo = false;
+  mostrarReenvio = false;
+  mostrarEnvio = true;
+
   constructor(private temporizador: TemporizadorService) {
+    this.mostrarEnvio = true;
     this.tiempo$ = this.temporizador.getTiempo$();
   }
 
@@ -25,6 +30,9 @@ export class CompraComponent implements OnDestroy {
     this.tiempo$ = this.temporizador.getTiempo$();
     this.subs.add(this.tiempo$.subscribe(tiempo => {
       this.tiempo = tiempo;
+      this.mostrarTiempo = true;
+      this.mostrarReenvio = false;
+      this.mostrarEnvio = false;
       console.log(this.tiempo);
     }));
     
@@ -33,6 +41,7 @@ export class CompraComponent implements OnDestroy {
     // Espera n segundos y luego detiene el temporizador
     setTimeout(() => {
       this.temporizador.detenerTemporizador();
+      this.mostrarReenvio = true;
     }, this.segundos*1000);
   }
 
